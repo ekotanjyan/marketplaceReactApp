@@ -1,34 +1,50 @@
 import db from '../config/database.js';
 
+// Helper function to build cart response
+const buildCartResponse = (userId) => {
+  const cartItems = db.getCartByUser(userId);
+
+  // Enrich cart items with product details
+  const enrichedCart = cartItems.map(item => {
+    const product = db.getProductById(item.productId);
+    return {
+      productId: item.productId,
+      quantity: item.quantity,
+      addedAt: item.addedAt,
+      product: product ? {
+        id: product.id,
+        name: product.name,
+        description: product.description,
+        price: product.price,
+        image: product.images?.[0] || 'https://via.placeholder.com/400x400?text=No+Image',
+        images: product.images,
+        stock: product.stock
+      } : null
+    };
+  });
+
+  const subtotal = enrichedCart.reduce((sum, item) => {
+    return sum + (item.product ? item.product.price * item.quantity : 0);
+  }, 0);
+
+  const itemCount = enrichedCart.reduce((sum, item) => sum + item.quantity, 0);
+
+  return {
+    userId,
+    items: enrichedCart,
+    total: parseFloat(subtotal.toFixed(2)),
+    itemCount
+  };
+};
+
 export const getCart = (req, res, next) => {
   try {
-    const cartItems = db.getCartByUser(req.user.id);
-    
-    // Enrich cart items with product details
-    const enrichedCart = cartItems.map(item => {
-      const product = db.getProductById(item.productId);
-      return {
-        ...item,
-        product: product ? {
-          id: product.id,
-          name: product.name,
-          price: product.price,
-          images: product.images,
-          stock: product.stock
-        } : null
-      };
-    });
-
-    const subtotal = enrichedCart.reduce((sum, item) => {
-      return sum + (item.product ? item.product.price * item.quantity : 0);
-    }, 0);
+    const cart = buildCartResponse(req.user.id);
 
     res.json({
       success: true,
       data: {
-        items: enrichedCart,
-        subtotal: parseFloat(subtotal.toFixed(2)),
-        itemCount: enrichedCart.length
+        cart
       }
     });
   } catch (error) {
@@ -53,7 +69,7 @@ export const addToCart = (req, res, next) => {
     const cartItems = db.getCartByUser(req.user.id);
     const existingItem = cartItems.find(item => item.productId === productId);
     const currentQuantity = existingItem ? existingItem.quantity : 0;
-    
+
     if (product.stock < currentQuantity + quantity) {
       return res.status(400).json({
         success: false,
@@ -71,10 +87,13 @@ export const addToCart = (req, res, next) => {
 
     db.addToCart(cartItem);
 
+    // Return full cart
+    const cart = buildCartResponse(req.user.id);
+
     res.status(201).json({
       success: true,
       message: 'Item added to cart',
-      data: cartItem
+      data: { cart }
     });
   } catch (error) {
     next(error);
@@ -112,10 +131,13 @@ export const updateCartItem = (req, res, next) => {
       });
     }
 
+    // Return full cart
+    const cart = buildCartResponse(req.user.id);
+
     res.json({
       success: true,
       message: 'Cart item updated',
-      data: updatedItem
+      data: { cart }
     });
   } catch (error) {
     next(error);
@@ -135,9 +157,13 @@ export const removeFromCart = (req, res, next) => {
       });
     }
 
+    // Return full cart
+    const cart = buildCartResponse(req.user.id);
+
     res.json({
       success: true,
-      message: 'Item removed from cart'
+      message: 'Item removed from cart',
+      data: { cart }
     });
   } catch (error) {
     next(error);
@@ -148,9 +174,13 @@ export const clearCart = (req, res, next) => {
   try {
     db.clearCart(req.user.id);
 
+    // Return empty cart
+    const cart = buildCartResponse(req.user.id);
+
     res.json({
       success: true,
-      message: 'Cart cleared'
+      message: 'Cart cleared',
+      data: { cart }
     });
   } catch (error) {
     next(error);

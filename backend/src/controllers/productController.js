@@ -53,10 +53,16 @@ export const getProducts = (req, res, next) => {
     const endIndex = startIndex + parseInt(limit);
     const paginatedProducts = products.slice(startIndex, endIndex);
 
+    // Add image field for frontend compatibility
+    const productsWithImage = paginatedProducts.map(p => ({
+      ...p,
+      image: p.images?.[0] || 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&h=600&fit=crop'
+    }));
+
     res.json({
       success: true,
       data: {
-        products: paginatedProducts,
+        products: productsWithImage,
         pagination: {
           page: parseInt(page),
           limit: parseInt(limit),
@@ -73,7 +79,7 @@ export const getProducts = (req, res, next) => {
 export const getProductById = (req, res, next) => {
   try {
     const product = db.getProductById(req.params.id);
-    
+
     if (!product) {
       return res.status(404).json({
         success: false,
@@ -84,12 +90,16 @@ export const getProductById = (req, res, next) => {
     // Get reviews for this product
     const reviews = db.getReviewsByProduct(req.params.id);
 
+    // Add image field for frontend compatibility
+    const productWithImage = {
+      ...product,
+      image: product.images?.[0] || 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&h=600&fit=crop',
+      reviews
+    };
+
     res.json({
       success: true,
-      data: {
-        ...product,
-        reviews
-      }
+      data: productWithImage
     });
   } catch (error) {
     next(error);

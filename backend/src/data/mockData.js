@@ -181,8 +181,8 @@ const generateProducts = () => {
       categoryId: 'cat-6',
       sellerId: 'user-2',
       images: [
-        'https://via.placeholder.com/800x600?text=iPhone+15+Pro+1',
-        'https://via.placeholder.com/800x600?text=iPhone+15+Pro+2'
+        'https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=800&h=600&fit=crop',
+        'https://images.unsplash.com/photo-1592286927505-f18904b7e99c?w=800&h=600&fit=crop'
       ],
       stock: 50,
       sku: 'IPH15PRO-001',
@@ -210,8 +210,8 @@ const generateProducts = () => {
       categoryId: 'cat-7',
       sellerId: 'user-2',
       images: [
-        'https://via.placeholder.com/800x600?text=MacBook+Pro+1',
-        'https://via.placeholder.com/800x600?text=MacBook+Pro+2'
+        'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=800&h=600&fit=crop',
+        'https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?w=800&h=600&fit=crop'
       ],
       stock: 25,
       sku: 'MBP16-001',
@@ -239,7 +239,7 @@ const generateProducts = () => {
       categoryId: 'cat-2',
       sellerId: 'user-3',
       images: [
-        'https://via.placeholder.com/800x600?text=Nike+Air+Max+90'
+        'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&h=600&fit=crop'
       ],
       stock: 100,
       sku: 'NIKE-AM90-001',
@@ -266,8 +266,8 @@ const generateProducts = () => {
       categoryId: 'cat-6',
       sellerId: 'user-3',
       images: [
-        'https://via.placeholder.com/800x600?text=Galaxy+S24+Ultra+1',
-        'https://via.placeholder.com/800x600?text=Galaxy+S24+Ultra+2'
+        'https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=800&h=600&fit=crop',
+        'https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=800&h=600&fit=crop'
       ],
       stock: 40,
       sku: 'SGS24U-001',
@@ -295,7 +295,7 @@ const generateProducts = () => {
       categoryId: 'cat-4',
       sellerId: 'user-2',
       images: [
-        'https://via.placeholder.com/800x600?text=Great+Gatsby'
+        'https://images.unsplash.com/photo-1543002588-bfa74002ed7e?w=800&h=600&fit=crop'
       ],
       stock: 200,
       sku: 'BOOK-GG-001',
@@ -323,7 +323,7 @@ const generateProducts = () => {
       categoryId: 'cat-5',
       sellerId: 'user-3',
       images: [
-        'https://via.placeholder.com/800x600?text=Yoga+Mat'
+        'https://images.unsplash.com/photo-1601925260368-ae2f83cf8b7f?w=800&h=600&fit=crop'
       ],
       stock: 75,
       sku: 'YOGA-MAT-001',
@@ -351,8 +351,8 @@ const generateProducts = () => {
       categoryId: 'cat-3',
       sellerId: 'user-2',
       images: [
-        'https://via.placeholder.com/800x600?text=Coffee+Maker+1',
-        'https://via.placeholder.com/800x600?text=Coffee+Maker+2'
+        'https://images.unsplash.com/photo-1517668808822-9ebb02f2a0e6?w=800&h=600&fit=crop',
+        'https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=800&h=600&fit=crop'
       ],
       stock: 30,
       sku: 'COFFEE-001',
@@ -379,8 +379,8 @@ const generateProducts = () => {
       categoryId: 'cat-1',
       sellerId: 'user-3',
       images: [
-        'https://via.placeholder.com/800x600?text=Headphones+1',
-        'https://via.placeholder.com/800x600?text=Headphones+2'
+        'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&h=600&fit=crop',
+        'https://images.unsplash.com/photo-1484704849700-f032a568e944?w=800&h=600&fit=crop'
       ],
       stock: 60,
       sku: 'HEADPHONES-001',
